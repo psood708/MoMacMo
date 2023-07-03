@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect ,useState} from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import { Form } from './Form_1';
+ 
 export default function ImageLooker() {
 
     const [image,setImage] = useState([]);
@@ -15,7 +15,7 @@ export default function ImageLooker() {
 
     useEffect(()=>{
         axios
-        .get("https://jsonplaceholder.typicode.com/posts")
+        .get(``)
         .then((res)=>
         setImage(res.data));
     },[]);
@@ -52,7 +52,7 @@ export default function ImageLooker() {
                 </div>
                 <div className='p-4'>
                 <h4 className='text-xl'>colorScale</h4>
-                    <input onChange={event=> {setcolorScale(event.target.value); setLink(volume,frame,scaleMin,scaleMax,colorScale)}} className='colorScale mt-4 text-xl'/>
+                    <input onChange={event=> {setcolorScale(event.target.value); setLink(`https://4g0io647a0.execute-api.us-east-1.amazonaws.com/Test/image?bucket=momacmos3&project=momacmo&folder=meagerdas&dataset=1432_aws_output_filt_5_50_despike&format=png&prefix=momacmo/meagerdas/1432_aws_output_filt_5_50_despike&volume=${volume}&frame=${frame}1&scaleMin=${scaleMin}&scaleMax=${scaleMax}&colorScale=${colorScale}`) }} className='colorScale mt-4 text-xl'/>
                 </div>
                 
                 
