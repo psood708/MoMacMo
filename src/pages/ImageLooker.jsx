@@ -13,13 +13,41 @@ export default function ImageLooker() {
     const [colorScale,setcolorScale] = useState(0);
     const [link,setLink] = useState(`https://4g0io647a0.execute-api.us-east-1.amazonaws.com/Test/image?bucket=momacmos3&project=momacmo&folder=meagerdas&dataset=1432_aws_output_filt_5_50_despike&format=png&prefix=momacmo/meagerdas/1432_aws_output_filt_5_50_despike&volume=${volume}&frame=${frame}1&scaleMin=${scaleMin}&scaleMax=${scaleMax}&colorScale=${colorScale}`);
 
-    useEffect(()=>{
-        axios
-        .get(``)
-        .then((res)=>
-        setImage(res.data));
-    },[]);
+    // useEffect(()=>{
+    //     axios
+    //     .get(``)
+    //     .then((res)=>
+    //     setImage(res.data));
+    // },[]);
      
+       
+        const getImage =() =>{
+           axios.get(link,{
+                headers:{
+                    'Accept':'image/png',
+                     
+                }
+             }
+                ).then((response)=>{
+                    console.log(response.data)
+                    
+                    setImage(response.data)
+                })
+             
+            // setImage(newImg);
+        };
+       
+        
+        // return (
+        //     <div className=''>
+        //         <img src={image} alt=''/>
+        //         <button onClick={getImage}>Get Image</button>
+        //     </div>
+        // )
+    
+     const clicked =()=>{
+        setLink(`https://4g0io647a0.execute-api.us-east-1.amazonaws.com/Test/image?bucket=momacmos3&project=momacmo&folder=meagerdas&dataset=1432_aws_output_filt_5_50_despike&format=png&prefix=momacmo/meagerdas/1432_aws_output_filt_5_50_despike&volume=${volume}&frame=${frame}1&scaleMin=${scaleMin}&scaleMax=${scaleMax}&colorScale=${colorScale}`)
+     }
 
     return (
         <div className='flex font-mono flex-col items-center bg-slate-200 text-5xl font-bold text-center'>
@@ -33,7 +61,7 @@ export default function ImageLooker() {
                             <p>{body}</p>
                             </div>)
                 })} */}
-               <div className='flex flex-row row-span-2 p-10'>
+               <div className='flex ml-48 flex-row row-span-2 p-10'>
                 <div className='p-4'>
                     <h4 className='text-xl'>volume</h4>
                     <input onChange={event=> setVolume(event.target.value)} className='volume mt-4 text-xl'/>
@@ -52,16 +80,20 @@ export default function ImageLooker() {
                 </div>
                 <div className='p-4'>
                 <h4 className='text-xl'>colorScale</h4>
-                    <input onChange={event=> {setcolorScale(event.target.value); setLink(`https://4g0io647a0.execute-api.us-east-1.amazonaws.com/Test/image?bucket=momacmos3&project=momacmo&folder=meagerdas&dataset=1432_aws_output_filt_5_50_despike&format=png&prefix=momacmo/meagerdas/1432_aws_output_filt_5_50_despike&volume=${volume}&frame=${frame}1&scaleMin=${scaleMin}&scaleMax=${scaleMax}&colorScale=${colorScale}`) }} className='colorScale mt-4 text-xl'/>
+                    <input onChange={event=> {setcolorScale(event.target.value); }} className='colorScale mt-4 text-xl'/>
                 </div>
                 
-                
                </div>
+               <button className='bg-purple-500 rounded-lg p-4 text-2xl text-white' onClick={clicked}>Submit</button>
                <div> {volume} {frame} {scaleMin} {scaleMax} {colorScale} </div>
                <div className='text-lg'> {link} </div>
             </div>
           
-             
+            <div className=''>
+                {/* <img src={image} clas alt=''/> */}
+                <div>{image}</div>
+                 <button className='text-lg text-white p-4 bg-purple-600 rounded-xl' onClick={getImage}>Get Image</button>
+            </div>
             {/* <button 
                 className='w-40 active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg'>
                 
